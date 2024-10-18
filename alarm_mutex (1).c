@@ -47,7 +47,20 @@ void print_alarm_list() {
         current = current->link; // Move to the next alarm in the list
     }
 }
+void printAlarmList(alarm_t *head) {
+    alarm_t *current = head; // Start from the head of the list
 
+    while (current != NULL) { // Traverse until the end of the list
+        printf("Alarm ID: %d\n", current->Alarm_ID);
+        printf("Type: %s\n", current->Type);
+        printf("Seconds: %d\n", current->seconds);
+        printf("Time: %s", ctime(&current->time)); // Convert time_t to string
+        printf("Message: %s\n", current->message);
+        printf("--------------------------\n");
+
+        current = current->link; // Move to the next node
+    }
+}
 /*
  * The alarm thread's start routine.
  */
@@ -249,6 +262,10 @@ int main (int argc, char *argv[])
                 if (status != 0)
                     err_abort (status, "Unlock mutex");
             }
+    }
+    else if (strncmp(line, "View_alarms, 11" == 0)) {
+        //print alarms in the list 
+        printAlarmList(alarm_list)
     }
 }
 }
